@@ -114,8 +114,11 @@ deploy-checklist:
 generate-secret-key:
 	@docker-compose exec web python -c 'import secrets; print(secrets.token_urlsafe(38))'
 
-
+# Heroku command
 heroku-login:
+	@heroku login
+
+heroku-whoami:
 	@heroku login
 
 heroku-create:
