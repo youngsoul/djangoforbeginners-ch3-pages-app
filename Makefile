@@ -124,26 +124,35 @@ heroku-whoami:
 heroku-create:
 	@heroku create
 
-heroku-app-name=serene-bastion-37621
+heroku-app-name=gentle-earth-75811
 
+# make heroku-stop-app appname=gentle-earth-75811
+heroku-stop-app:
+	@heroku ps:scale web=0 --app $(appname)
+
+# make heroku-set-container appname=gentle-earth-75811
 heroku-set-container:
-	@heroku stack:set container -a $(heroku-app-name)
+	@heroku stack:set container -a $(appname)
 
+# make heroku-create-postgres appname=gentle-earth-75811
 heroku-create-postgres:
-	@heroku addons:create heroku-postgresql:hobby-dev -a $(heroku-app-name)
+	@heroku addons:create heroku-postgresql:hobby-dev -a $(appname)
 
 heroku-django-secret-key:
 	@heroku config:set DJANGO_SECRET_KEY=$(shell python -c 'import secrets; print(secrets.token_urlsafe(38))')  -a $(heroku-app-name)
 
+
+# make heroku-git-remote appname=gentle-earth-75811
 heroku-git-remote:
-	@heroku git:remote -a $(heroku-app-name)
+	@heroku git:remote -a $(appname)
 
 heroku-push-master:
 	-git remote -v
 	-git push heroku master
 
+# make heroku-open appname=gentle-earth-75811
 heroku-open:
-	@heroku open -a $(heroku-app-name)
+	@heroku open -a $(appname)
 
 # Django commands
 # make cmd=migrate heroku-manage
